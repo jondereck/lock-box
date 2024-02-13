@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import db from "@/lib/db";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
   description: "A simple authentication service.",
 };
 
-export default function RootLayout({
+export default  function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
