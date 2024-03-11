@@ -19,6 +19,7 @@ export const {
   pages: {
     signIn: "/auth/login",
     error: "/auth/error",
+
   },
   events: {
     async linkAccount({ user }) {
@@ -29,6 +30,23 @@ export const {
     }
   },
   callbacks: {
+    async signIn({ user, account }) {
+      // Check if user is undefined
+      if (!user) return false;
+      
+      // Allow OAuth without email verification
+      if (account?.provider !== "credentials") return true;
+    
+      // Ensure that user.id is defined before passing it to getUserById
+      const userId = user.id || ''; // Provide a default value if id is undefined
+      
+      const existingUser = await getUserById(userId);
+    
+      if (!existingUser?.emailVerified) return false;
+    
+      return true;
+    },
+    
     // async signIn({ user }: { user: any }){
     //   const existingUser = await getUserById(user.id);
 
@@ -45,6 +63,7 @@ export const {
       if (token.sub && session.user) {
         session.user.id = token.sub
       }
+
 
       if (token.role && session.user) {
         session.user.role = token.role as UserRole;
