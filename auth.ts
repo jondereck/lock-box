@@ -31,6 +31,10 @@ export const {
   },
   callbacks: {
     async signIn({ user, account }) {
+      console.log({
+        user,
+        account,
+      })
       // Check if user is undefined
       if (!user) return false;
       
