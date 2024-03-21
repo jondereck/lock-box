@@ -24,16 +24,7 @@ import { newPassword } from "@/actions/new-password";
 import CardWrapper from "./card-wrapper";
 
 export const NewPasswordForm = () => {
-// State to track if component is mounted
-const [mounted, setMounted] = useState(false);
 
-useEffect(() => {
-  setMounted(true);
-  return () => setMounted(false);
-}, []);
-
-// Logic to render the component only on the client-side
-if (!mounted) return null;
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
