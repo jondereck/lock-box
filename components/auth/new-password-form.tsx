@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -24,6 +24,16 @@ import { newPassword } from "@/actions/new-password";
 import CardWrapper from "./card-wrapper";
 
 export const NewPasswordForm = () => {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return '';
+  }
+  
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
